@@ -58,14 +58,14 @@ module Datadog
         end
 
         def self.tracer
-          @tracer ||= Datadog.configuration[:sinatra][:tracer]
+          @tracer ||= Datadog.configuration[:rack][:tracer]
         end
 
         def self.database_service
           return @database_service if defined?(@database_service)
 
           @database_service = get_option(:service_name) || adapter_name
-          tracer.set_service_info(@database_service, 'sinatra', Ext::AppTypes::DB)
+          tracer.set_service_info(@database_service, 'rack', Ext::AppTypes::DB)
           @database_service
         end
 
